@@ -3,7 +3,6 @@ from snake import Snake
 from food import Food
 from scoreboard import Scoreboard
 import time
-# import random
 
 WALL_COR = 300
 
@@ -35,18 +34,14 @@ def game():
         screen.update()
         time.sleep(0.1)
 
-        snake.move()
+        
 
         #detections
             # got a food
         if snake.head.distance(food) < 15:
-            snake.extend()
+            snake.add_part()
             food.spawn()
             scoreboard.score_up()
-            if snake.head.distance(food) < 30:
-                snake.extend()
-                food.spawn()    
-                scoreboard.score_up()
             # collision to wall
 
         if  -WALL_COR > snake.head.xcor() or snake.head.xcor() > WALL_COR or -WALL_COR > snake.head.ycor() or snake.head.ycor() > WALL_COR:
@@ -58,16 +53,10 @@ def game():
                 snake.reset()
                 scoreboard.reset()
 
+        snake.move()
     # game over screen
 
     screen.exitonclick()
-
-# def random_color():
-#     r = random.randint(1,255)
-#     g = random.randint(1,255)
-#     b = random.randint(1,255)
-    
-#     return r, g, b
 
 game()
 

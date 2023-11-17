@@ -15,42 +15,34 @@ class Snake(Turtle):
 
     def __init__(self):
         super().__init__()
-
         self.segments = []
-        self.create_snake()
+        self.beginner_snake()
+
+
+    def beginner_snake(self):
+        for _ in range(3):
+            self.add_part()
+
         self.head = self.segments[0]
 
 
-    def create_snake(self):
-        self.append((0,0), "white")
-        for i in range(2):
-            self.append((-i*20, 0), random.choice(colors))
-
-    
-    def append(self,position,color):
-        # random_box_size = 0.9
+    def add_part(self):
         random_box_size = random.randint(5, 10) / 10
 
-
         new_segment = Turtle("square")
-        new_segment.color(color)
+        new_segment.color("white") # change later
         new_segment.shapesize(stretch_len=random_box_size, stretch_wid=random_box_size)
-        new_segment.penup()
-        new_segment.goto(position)
+        new_segment.pu()
+
         self.segments.append(new_segment)
-
-    def extend(self):
-        color = random.choice(colors)
-        self.append(self.segments[-1].position(), color)
-
+    
 
     def reset(self):
         for part in self.segments:
             part.goto(1000,1000)
 
         self.segments.clear()
-        self.create_snake()
-        self.head = self.segments[0]
+        self.beginner_snake()
 
 
     def move(self):
@@ -81,6 +73,5 @@ class Snake(Turtle):
     def down(self):
         if self.head.heading() != UP:
             self.head.setheading(DOWN)
-
 
 
